@@ -1,0 +1,8 @@
+# node_modules
+./node_modules
+.dockerignore
+.gitignore
+.gitlab-ci.yml
+.env.example
+docker-compose.yml
+Dockerfile
