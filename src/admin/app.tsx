@@ -1,6 +1,6 @@
 import type { StrapiApp } from '@strapi/strapi/admin';
 
-import logo from "./extensions/favicon.png";
+import logo from "./extensions/logo.png";
 
 const config = {
   locales: ["en", "ru"],

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prices",
+  "info": {
+    "singularName": "price",
+    "pluralName": "prices",
+    "displayName": "Price",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text",
+      "maxLength": 255,
+      "unique": false,
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true,
+      "maxLength": 255
+    },
+    "count": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}
