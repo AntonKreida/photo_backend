@@ -17,7 +17,7 @@ export const nexusExtension = (strapi: Core.Strapi) => {
           t.field('price', {
             type: 'Price',
             args: {
-              id: 'Int',
+              id: nexus.nonNull(nexus.intArg())
             },
             resolve: async (_, args) => (
                 await strapi.entityService.findOne('api::price.price', args.id)
@@ -26,5 +26,10 @@ export const nexusExtension = (strapi: Core.Strapi) => {
         }
       })
     ],
+    typeDefs:`
+      extend type Query {
+       prices(type: ENUM_PRICE_TYPE): [Price]!
+      }
+    `
   })
 }

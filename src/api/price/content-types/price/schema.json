@@ -26,6 +26,16 @@
     "count": {
       "type": "integer",
       "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Ex:",
+        "training",
+        "personal ",
+        "business "
+      ],
+      "required": true
     }
   }
 }
