@@ -23,9 +23,7 @@ export interface ApiPricePrice extends Struct.CollectionTypeSchema {
         maxLength: 255;
       }>;
     count: Schema.Attribute.Integer & Schema.Attribute.Required;
-    type: Schema.Attribute.Enumeration<
-      ['Ex:', 'training', 'personal ', 'business ']
-    > &
+    type: Schema.Attribute.Enumeration<['training', 'personal ', 'business ']> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;

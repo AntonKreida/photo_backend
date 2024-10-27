@@ -30,7 +30,6 @@
     "type": {
       "type": "enumeration",
       "enum": [
-        "Ex:",
         "training",
         "personal ",
         "business "
