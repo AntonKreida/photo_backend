@@ -23,13 +23,27 @@ export const nexusExtension = (strapi: Core.Strapi) => {
                 await strapi.entityService.findOne('api::price.price', args.id)
             ),
           });
+          t.list.field('prices', {
+            type: 'Price',
+            args: {
+              type: "ENUM_PRICE_TYPE",
+            },
+            resolve: async (_, args) => {
+              if(args?.type) {
+                const response = await strapi.entityService.findMany('api::price.price', {
+                  filters: {
+                    type: args.type
+                  }
+                })
+
+                return response
+              }
+
+              return await strapi.entityService.findMany('api::price.price')
+            }
+          })
         }
       })
     ],
-    typeDefs:`
-      extend type Query {
-       prices(type: ENUM_PRICE_TYPE): [Price]!
-      }
-    `
-  })
+  });
 }
