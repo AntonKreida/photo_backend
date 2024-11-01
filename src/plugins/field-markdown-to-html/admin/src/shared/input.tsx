@@ -1,12 +1,8 @@
 import { forwardRef } from 'react';
-import { useIntl } from 'react-intl';
+import { Textarea, Field } from '@strapi/design-system';
 
 export const Input = forwardRef((props: any, ref: any) => {
-  const { attribute, disabled, name, onChange, required, value, type, } = props; // these are just some of the props passed by the content-manager
-
-  const { formatMessage } = useIntl();
-
-  console.log(value);
+  const { attribute, name, onChange, value, error, hint } = props; // these are just some of the props passed by the content-manager
 
   const handleChange = (e: any) => {
     onChange({
@@ -15,16 +11,19 @@ export const Input = forwardRef((props: any, ref: any) => {
   };
 
   return (
-    <label>
-      <input
-        ref={ref}
+    <Field.Root id={name} error={error} hint={hint}>
+      <Field.Label>{name}</Field.Label>
+      <Textarea
+        id={name}
         name={name}
-        disabled={disabled}
-        value={value || ''}
-        required={required}
+        error={error}
+        value={value}
         onChange={handleChange}
-        type={type}
+        ref={ref}
+        {...props}
       />
-    </label>
+      <Field.Error />
+      <Field.Hint />
+    </Field.Root>
   );
 });

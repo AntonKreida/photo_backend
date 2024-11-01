@@ -74,8 +74,6 @@ export default {
       })
     );
 
-    console.log(importedTranslations, 'importedTranslations');
-
     return importedTranslations;
   },
 };
