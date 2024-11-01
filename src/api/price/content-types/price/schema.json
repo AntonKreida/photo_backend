@@ -35,6 +35,12 @@
         "business "
       ],
       "required": true
+    },
+    "awdawdawd": {
+      "type": "customField",
+      "customField": "plugin::field-markdown-to-html.field-markdown-to-html",
+      "min": 1,
+      "max": 255
     }
   }
 }

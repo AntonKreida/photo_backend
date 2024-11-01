@@ -11,4 +11,8 @@ export default () => ({
           },
         },
     },
+    "field-markdown-to-html": {
+      enabled: true,
+      resolve: "./src/plugins/field-markdown-to-html",
+    }
 });
