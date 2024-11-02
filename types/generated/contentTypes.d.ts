@@ -25,15 +25,6 @@ export interface ApiPricePrice extends Struct.CollectionTypeSchema {
     count: Schema.Attribute.Integer & Schema.Attribute.Required;
     type: Schema.Attribute.Enumeration<['training', 'personal ', 'business ']> &
       Schema.Attribute.Required;
-    awdawdawd: Schema.Attribute.String &
-      Schema.Attribute.CustomField<'plugin::field-markdown-to-html.field-markdown-to-html'> &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 255;
-        },
-        number
-      >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

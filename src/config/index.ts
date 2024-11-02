@@ -1,1 +1,1 @@
-export * from "./nexus"
+export * from "./graph-ql"
