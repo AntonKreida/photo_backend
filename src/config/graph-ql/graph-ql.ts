@@ -39,10 +39,10 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
           t.list.field('prices', {
             type: 'Price',
             args: {
-              type: "ENUM_TYPEPRICE_TYPE",
+              type: "String"
             },
             resolve: async (_, args) => {
-              if(args?.type) {
+              if(args?.type && args.type !== "all") {
                 const prices = await strapi.entityService.findMany('api::price.price', {
                   filters: {
                     type_price: {
