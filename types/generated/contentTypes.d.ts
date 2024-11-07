@@ -1,43 +1,5 @@
 import type { Struct, Schema } from '@strapi/strapi';
 
-export interface ApiPricePrice extends Struct.CollectionTypeSchema {
-  collectionName: 'prices';
-  info: {
-    singularName: 'price';
-    pluralName: 'prices';
-    displayName: 'Price';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    title: Schema.Attribute.Text &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
-      }>;
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
-      }>;
-    count: Schema.Attribute.Integer & Schema.Attribute.Required;
-    type: Schema.Attribute.Enumeration<['training', 'personal ', 'business ']> &
-      Schema.Attribute.Required;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::price.price'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
@@ -533,6 +495,83 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiPricePrice extends Struct.CollectionTypeSchema {
+  collectionName: 'prices';
+  info: {
+    singularName: 'price';
+    pluralName: 'prices';
+    displayName: 'Price';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    cost: Schema.Attribute.Integer & Schema.Attribute.Required;
+    type_price: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::type-price.type-price'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::price.price'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTypePriceTypePrice extends Struct.CollectionTypeSchema {
+  collectionName: 'type_prices';
+  info: {
+    singularName: 'type-price';
+    pluralName: 'type-prices';
+    displayName: 'TypePrice';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    translate: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    prices: Schema.Attribute.Relation<'oneToMany', 'api::price.price'>;
+    type: Schema.Attribute.Enumeration<['training', 'personal', 'business']> &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::type-price.type-price'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface AdminPermission extends Struct.CollectionTypeSchema {
   collectionName: 'admin_permissions';
   info: {
@@ -905,7 +944,6 @@ export interface AdminTransferTokenPermission
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
-      'api::price.price': ApiPricePrice;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
@@ -916,6 +954,8 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::price.price': ApiPricePrice;
+      'api::type-price.type-price': ApiTypePriceTypePrice;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;

@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "type_prices",
+  "info": {
+    "singularName": "type-price",
+    "pluralName": "type-prices",
+    "displayName": "TypePrice",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "translate": {
+      "type": "string",
+      "required": true,
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "prices": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::price.price",
+      "mappedBy": "type_price"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "training",
+        "personal",
+        "business"
+      ],
+      "required": true
+    }
+  }
+}

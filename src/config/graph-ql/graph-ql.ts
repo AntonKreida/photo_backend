@@ -14,6 +14,14 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
         },
       }),
       nexus.extendType({
+        type: "TypePrice",
+        definition(t) {
+          t.int('id', {
+            resolve: ({id}) => id,
+          });
+        }
+      }),
+      nexus.extendType({
         type: "Query",
         definition(t) {
           t.field('price', {
@@ -31,14 +39,16 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
           t.list.field('prices', {
             type: 'Price',
             args: {
-              type: "ENUM_PRICE_TYPE",
+              type: "ENUM_TYPEPRICE_TYPE",
             },
             resolve: async (_, args) => {
               if(args?.type) {
                 const prices = await strapi.entityService.findMany('api::price.price', {
                   filters: {
-                    type: args.type
-                  }
+                    type_price: {
+                      type: args.type
+                    }
+                  },
                 })
 
                 const mappedConvertedPrices = prices.map((price) => (
@@ -49,7 +59,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
               }
 
               const prices = await strapi.entityService.findMany('api::price.price');
-              
+
               const mappedConvertedPrices = prices.map((price) => (
                 new EntityPrice(price).convertDescriptionMarkdownToHtml()
               ))

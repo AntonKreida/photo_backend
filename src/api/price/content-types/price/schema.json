@@ -23,18 +23,15 @@
       "required": true,
       "maxLength": 255
     },
-    "count": {
+    "cost": {
       "type": "integer",
       "required": true
     },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "training",
-        "personal ",
-        "business "
-      ],
-      "required": true
+    "type_price": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::type-price.type-price",
+      "inversedBy": "prices"
     }
   }
 }

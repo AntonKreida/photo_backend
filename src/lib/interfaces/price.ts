@@ -5,12 +5,12 @@ export interface IPrice {
     id: Params.Attribute.ID;
     documentId: string;
     locale?: string;
-    type?: "training" | "personal " | "business ";
     title?: string;
     description?: string;
-    count?: number;
+    cost?: number;
     createdAt?: Schema.Attribute.DateTimeValue;
     updatedAt?: Schema.Attribute.DateTimeValue;
     publishedAt?: Schema.Attribute.DateTimeValue;
+    type_price?: Schema.Attribute.Relation<'oneToMany', 'api::price.price'>;
 
 }
