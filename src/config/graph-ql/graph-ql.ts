@@ -22,6 +22,14 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
         }
       }),
       nexus.extendType({
+        type: 'Review',
+        definition(t) {
+          t.int('id', {
+            resolve: ({id}) => id,
+          });
+        },
+      }),
+      nexus.extendType({
         type: "Query",
         definition(t) {
           t.field('price', {
@@ -65,6 +73,43 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
               ))
 
               return mappedConvertedPrices
+            }
+          }),
+          t.field("review", {
+            type: "Review",
+            args: {
+              isActiveReview: nexus.nonNull(nexus.booleanArg()),
+              id: nexus.nonNull(nexus.intArg())
+            },
+            resolve: async (_, args) => {
+              const reviewResponse = await strapi.entityService.findMany('api::review.review', {
+                filters: {
+                  $and: [
+                    {
+                      id: args.id
+                    },
+                    {
+                      isActiveReview: args.isActiveReview
+                    }
+                  ]
+                }
+              })
+              return reviewResponse.length > 0 ? reviewResponse[0] : null;
+            }
+          }),
+          t.list.field("reviews", {
+            type: "Review",
+            args: {
+              isActiveReview: nexus.nonNull(nexus.booleanArg())
+            },
+            resolve: async (_, args) => {
+              const reviews =  await strapi.entityService.findMany('api::review.review', {
+                filters: {
+                  isActiveReview: args.isActiveReview
+                }
+              })
+
+              return reviews
             }
           })
         }

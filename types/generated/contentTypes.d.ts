@@ -547,7 +547,7 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    name: Schema.Attribute.String &
+    author: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
