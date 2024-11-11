@@ -115,7 +115,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
         }
       })
     ],
-    typeDefs: `
+    typeDefs:`
       scalar Upload
 
       type Mutation {
@@ -124,15 +124,12 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
     `,
     resolvers: {
       Mutation: {
-
         singleUpload: async (_, args) => {
          try {
           const uploadRepository = new UploadRepository(strapi);
 
           const folder = await uploadRepository.createFolder("reviews");
-
           await uploadRepository.uploadFileImg(new EntityFileImg(args.file), folder?.path);
-
          } catch (error) {
           console.log(error);
          }
