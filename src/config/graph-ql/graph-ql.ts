@@ -1,6 +1,7 @@
 import type { Core } from "@strapi/strapi";
-import { EntityPrice } from "../../entity/";
+import { EntityPrice, EntityFileImg } from "../../entity/";
 
+import { UploadRepository } from "../../repositories";
 
 export const graphqlExtension = (strapi: Core.Strapi) => {
     return ({ nexus }) => ({
@@ -108,12 +109,40 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
                   isActiveReview: args.isActiveReview
                 }
               })
-
               return reviews
             }
           })
         }
       })
     ],
+    typeDefs: `
+      scalar Upload
+
+      type Mutation {
+        singleUpload(file: Upload!): String
+      }
+    `,
+    resolvers: {
+      Mutation: {
+
+        singleUpload: async (_, args) => {
+         try {
+          const uploadRepository = new UploadRepository(strapi);
+
+          const folder = await uploadRepository.createFolder("reviews");
+
+          await uploadRepository.uploadFileImg(new EntityFileImg(args.file), folder?.path);
+
+         } catch (error) {
+          console.log(error);
+         }
+        }
+      }
+    },
+    resolversConfig: {
+      "Mutation.singleUpload": {
+        auth: false,
+      },
+    },
   });
 }
