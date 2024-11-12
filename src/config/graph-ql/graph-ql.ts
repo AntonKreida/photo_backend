@@ -101,22 +101,37 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
           t.list.field("reviews", {
             type: "Review",
             args: {
-              isActiveReview: nexus.nonNull(nexus.booleanArg())
+              isActiveReview: nexus.nonNull(nexus.booleanArg()),
             },
-            resolve: async (_, args) => {
-              const reviews =  await strapi.entityService.findMany('api::review.review', {
+            resolve: async (_, args) => (
+              await strapi.entityService.findMany('api::review.review', {
                 filters: {
                   isActiveReview: args.isActiveReview
+                },
+                sort: {
+                  ...args.sort,
                 }
               })
-              return reviews
-            }
+            )
           })
         }
       })
     ],
     typeDefs:`
       scalar Upload
+
+      enum Sort {
+        asc
+        desc
+      }
+
+      input LinkReviewByInput {
+        createdAt: Sort
+      }
+
+      type Query {
+        reviews(sort: LinkReviewByInput): [Review!]
+      }
 
       type FileImg {
         id: ID!
