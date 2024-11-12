@@ -6,4 +6,7 @@ export interface FileImgRequest {
     name: string;
     extension: string;
     mimeType: string;
+    width: number;
+    height: number;
+    folder?: string;
 }

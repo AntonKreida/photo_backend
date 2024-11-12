@@ -1,28 +1,27 @@
-import { Core, Data } from "@strapi/strapi";
+import { Core } from "@strapi/strapi";
 import { EntityFileImg } from "../entity";
+import { Folder, FileImage } from "../lib/types";
+import fs from 'fs';
+import process from 'process';
 
-type Folder = Data.Entity & {
-    id: Data.ID;
-    documentId: Data.DocumentID;
-    name?: string;
-    pathId?: number;
-    path?: string;
-}
+
 
 export class UploadRepository {
     constructor(public strapi: Core.Strapi) {};
 
-    public async uploadFileImg(entityImg: EntityFileImg, folderPath?: string): Promise<void> {
+    public async uploadFileImg(entityImg: EntityFileImg, folderPath?: string): Promise<FileImage> {
         try {
-            const fs = await import('fs');
-            const process = await import('process').then(({ default: process }) => process);
-
             const fileRecord = await strapi.entityService.create("plugin::upload.file", {
                 data: entityImg.getFileData(folderPath),
             })
 
+            console.log(entityImg.getFileData(folderPath),)
+            console.log(fileRecord);
+
             const filePath = `${process.cwd()}/public/uploads/${fileRecord.name}`
             fs.writeFileSync(filePath, entityImg.getBuffer());
+
+            return fileRecord;
         } catch(error) {
             throw new Error("Error upload file");
         }

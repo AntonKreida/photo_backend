@@ -118,18 +118,37 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
     typeDefs:`
       scalar Upload
 
+      type FileImg {
+        id: ID!
+        documentId: String
+        name: String
+        alternativeText: String
+        caption: String
+        width: Int
+        height: Int
+        hash: String
+        ext: String
+        mime: String
+        size: Int
+        url: String
+        provider: String
+        folderPath: String
+      }
+
       type Mutation {
-        singleUpload(file: Upload!): String
+        singleUploadImg(file: Upload!): FileImg
       }
     `,
     resolvers: {
       Mutation: {
-        singleUpload: async (_, args) => {
+        singleUploadImg: async (_, args) => {
          try {
           const uploadRepository = new UploadRepository(strapi);
 
-          const folder = await uploadRepository.createFolder("reviews");
-          await uploadRepository.uploadFileImg(new EntityFileImg(args.file), folder?.path);
+          const folder = await uploadRepository.createFolder(args.file.folder);
+          const file = await uploadRepository.uploadFileImg(new EntityFileImg(args.file), folder?.path);
+
+          return file
          } catch (error) {
           console.log(error);
          }
@@ -137,7 +156,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
       }
     },
     resolversConfig: {
-      "Mutation.singleUpload": {
+      "Mutation.singleUploadImg": {
         auth: false,
       },
     },
