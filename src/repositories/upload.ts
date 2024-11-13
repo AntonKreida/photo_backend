@@ -15,9 +15,6 @@ export class UploadRepository {
                 data: entityImg.getFileData(folderPath),
             })
 
-            console.log(entityImg.getFileData(folderPath),)
-            console.log(fileRecord);
-
             const filePath = `${process.cwd()}/public/uploads/${fileRecord.name}`
             fs.writeFileSync(filePath, entityImg.getBuffer());
 

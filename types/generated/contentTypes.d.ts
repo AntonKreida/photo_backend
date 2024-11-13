@@ -495,6 +495,45 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiIndividualIndividual extends Struct.SingleTypeSchema {
+  collectionName: 'individuals';
+  info: {
+    singularName: 'individual';
+    pluralName: 'individuals';
+    displayName: 'Individuals';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titlePage: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    subPageTitle: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::individual.individual'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPricePrice extends Struct.CollectionTypeSchema {
   collectionName: 'prices';
   info: {
@@ -997,6 +1036,7 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::individual.individual': ApiIndividualIndividual;
       'api::price.price': ApiPricePrice;
       'api::review.review': ApiReviewReview;
       'api::type-price.type-price': ApiTypePriceTypePrice;
