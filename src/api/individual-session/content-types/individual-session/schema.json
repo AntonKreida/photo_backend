@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "individual_sessions",
+  "info": {
+    "singularName": "individual-session",
+    "pluralName": "individual-sessions",
+    "displayName": "IndividualSessions"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "titleImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "sessionImages": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}
