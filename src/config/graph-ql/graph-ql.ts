@@ -1,7 +1,11 @@
 import type { Core } from "@strapi/strapi";
 import { EntityPrice, EntityFileImg } from "../../entity/";
 
-import { UploadRepository } from "../../repositories";
+import {
+  UploadRepository,
+  PriceRepositories,
+  ReviewsRepositories,
+} from "../../repositories";
 
 export const graphqlExtension = (strapi: Core.Strapi) => {
     return ({ nexus }) => ({
@@ -39,7 +43,9 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
               id: nexus.nonNull(nexus.intArg())
             },
             resolve: async (_, args) => {
-              const priceResponse = await strapi.entityService.findOne('api::price.price', args.id)
+              const repositories = new PriceRepositories(strapi)
+
+              const priceResponse = await repositories.findOne({ idPrice: args.id })
               const price = new EntityPrice(priceResponse).convertDescriptionMarkdownToHtml();
 
               return price;
@@ -51,23 +57,25 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
               type: "String"
             },
             resolve: async (_, args) => {
+              const repositories = new PriceRepositories(strapi)
+
               if(args?.type && args.type !== "all") {
-                const prices = await strapi.entityService.findMany('api::price.price', {
+                const prices = await repositories.findMany({
                   filters: {
                     type_price: {
                       type: args.type
                     }
                   },
-                })
+                });
 
                 const mappedConvertedPrices = prices.map((price) => (
                   new EntityPrice(price).convertDescriptionMarkdownToHtml()
-                ))
+                ));
 
                 return mappedConvertedPrices
               }
 
-              const prices = await strapi.entityService.findMany('api::price.price');
+              const prices = await repositories.findMany();
 
               const mappedConvertedPrices = prices.map((price) => (
                 new EntityPrice(price).convertDescriptionMarkdownToHtml()
@@ -83,7 +91,9 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
               id: nexus.nonNull(nexus.intArg())
             },
             resolve: async (_, args) => {
-              const reviewResponse = await strapi.entityService.findMany('api::review.review', {
+              const repositories = new ReviewsRepositories(strapi)
+              
+              const reviewResponse = await repositories.findMany({
                 filters: {
                   $and: [
                     {
@@ -104,7 +114,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
               isActiveReview: nexus.nonNull(nexus.booleanArg()),
             },
             resolve: async (_, args) => (
-              await strapi.entityService.findMany('api::review.review', {
+              await new ReviewsRepositories(strapi).findMany({
                 filters: {
                   isActiveReview: args.isActiveReview
                 },
