@@ -1,11 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "individuals",
+  "collectionName": "families",
   "info": {
-    "singularName": "individual",
-    "pluralName": "individuals",
-    "displayName": "Individuals",
-    "description": ""
+    "singularName": "family",
+    "pluralName": "families",
+    "displayName": "family"
   },
   "options": {
     "draftAndPublish": false
@@ -14,13 +13,13 @@
   "attributes": {
     "titlePage": {
       "type": "string",
+      "required": true,
       "minLength": 1,
-      "maxLength": 255,
-      "required": true
+      "maxLength": 255
     },
     "subTitlePage": {
-      "type": "text",
-      "required": false,
+      "type": "string",
+      "required": true,
       "minLength": 1,
       "maxLength": 255
     }

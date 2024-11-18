@@ -495,6 +495,156 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiBrandBrand extends Struct.SingleTypeSchema {
+  collectionName: 'brands';
+  info: {
+    singularName: 'brand';
+    pluralName: 'brands';
+    displayName: 'brand';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titlePage: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    subTitlePage: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::brand.brand'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBrandSessionBrandSession
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'brand_sessions';
+  info: {
+    singularName: 'brand-session';
+    pluralName: 'brand-sessions';
+    displayName: 'brandSessions';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    sessionImages: Schema.Attribute.Media<'images', true> &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::brand-session.brand-session'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFamilyFamily extends Struct.SingleTypeSchema {
+  collectionName: 'families';
+  info: {
+    singularName: 'family';
+    pluralName: 'families';
+    displayName: 'family';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titlePage: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    subTitlePage: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::family.family'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFamilySessionFamilySession
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'family_sessions';
+  info: {
+    singularName: 'family-session';
+    pluralName: 'family-sessions';
+    displayName: 'familySessions';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    sessionImages: Schema.Attribute.Media<'images', true> &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::family-session.family-session'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiIndividualIndividual extends Struct.SingleTypeSchema {
   collectionName: 'individuals';
   info: {
@@ -513,7 +663,7 @@ export interface ApiIndividualIndividual extends Struct.SingleTypeSchema {
         minLength: 1;
         maxLength: 255;
       }>;
-    subPageTitle: Schema.Attribute.Text &
+    subTitlePage: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
         maxLength: 255;
@@ -686,6 +836,81 @@ export interface ApiTypePriceTypePrice extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::type-price.type-price'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWeddingWedding extends Struct.SingleTypeSchema {
+  collectionName: 'weddings';
+  info: {
+    singularName: 'wedding';
+    pluralName: 'weddings';
+    displayName: 'wedding';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    titlePage: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    subTitlePage: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::wedding.wedding'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWeddingSessionWeddingSession
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'wedding_sessions';
+  info: {
+    singularName: 'wedding-session';
+    pluralName: 'wedding-sessions';
+    displayName: 'weddingSessions';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    sessionImages: Schema.Attribute.Media<'images', true> &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::wedding-session.wedding-session'
     > &
       Schema.Attribute.Private;
   };
@@ -1073,11 +1298,17 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::brand.brand': ApiBrandBrand;
+      'api::brand-session.brand-session': ApiBrandSessionBrandSession;
+      'api::family.family': ApiFamilyFamily;
+      'api::family-session.family-session': ApiFamilySessionFamilySession;
       'api::individual.individual': ApiIndividualIndividual;
       'api::individual-session.individual-session': ApiIndividualSessionIndividualSession;
       'api::price.price': ApiPricePrice;
       'api::review.review': ApiReviewReview;
       'api::type-price.type-price': ApiTypePriceTypePrice;
+      'api::wedding.wedding': ApiWeddingWedding;
+      'api::wedding-session.wedding-session': ApiWeddingSessionWeddingSession;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
