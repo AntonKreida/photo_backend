@@ -1,10 +1,11 @@
 import type { Core } from "@strapi/strapi";
-import { EntityPrice, EntityFileImg } from "../../entity/";
+import { EntityPrice, EntityFileImg, EntityAbout } from "../../entity/";
 
 import {
   UploadRepository,
   PriceRepositories,
   ReviewsRepositories,
+  AboutRepository,
 } from "../../repositories";
 
 export const graphqlExtension = (strapi: Core.Strapi) => {
@@ -165,6 +166,15 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
       }
     `,
     resolvers: {
+      Query: {
+        about: async () => {
+          const aboutPage = await new AboutRepository(strapi).findMany();
+
+          const aboutEntity = new EntityAbout(aboutPage).convertDescriptionMarkdownToHtml();
+
+          return aboutEntity;
+        }
+      },
       Mutation: {
         singleUploadImg: async (_, args) => {
          try {
@@ -177,7 +187,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
          } catch (error) {
           console.log(error);
          }
-        }
+        },
       },
     },
     resolversConfig: {

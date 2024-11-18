@@ -1,3 +1,4 @@
 export * from "./upload";
 export * from "./prices";
-export * from "./reviews"
+export * from "./reviews";
+export * from "./about";
