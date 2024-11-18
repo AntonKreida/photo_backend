@@ -681,6 +681,45 @@ export interface ApiFamilySessionFamilySession
   };
 }
 
+export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
+  collectionName: 'home_pages';
+  info: {
+    singularName: 'home-page';
+    pluralName: 'home-pages';
+    displayName: 'Home-page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    subTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    sliders: Schema.Attribute.Relation<'oneToMany', 'api::slider.slider'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-page.home-page'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiIndividualIndividual extends Struct.SingleTypeSchema {
   collectionName: 'individuals';
   info: {
@@ -835,6 +874,47 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::review.review'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSliderSlider extends Struct.CollectionTypeSchema {
+  collectionName: 'sliders';
+  info: {
+    singularName: 'slider';
+    pluralName: 'sliders';
+    displayName: 'Sliders';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    sliderImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::slider.slider'
     > &
       Schema.Attribute.Private;
   };
@@ -1339,10 +1419,12 @@ declare module '@strapi/strapi' {
       'api::brand-session.brand-session': ApiBrandSessionBrandSession;
       'api::family.family': ApiFamilyFamily;
       'api::family-session.family-session': ApiFamilySessionFamilySession;
+      'api::home-page.home-page': ApiHomePageHomePage;
       'api::individual.individual': ApiIndividualIndividual;
       'api::individual-session.individual-session': ApiIndividualSessionIndividualSession;
       'api::price.price': ApiPricePrice;
       'api::review.review': ApiReviewReview;
+      'api::slider.slider': ApiSliderSlider;
       'api::type-price.type-price': ApiTypePriceTypePrice;
       'api::wedding.wedding': ApiWeddingWedding;
       'api::wedding-session.wedding-session': ApiWeddingSessionWeddingSession;
