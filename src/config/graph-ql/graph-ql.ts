@@ -92,8 +92,8 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
             },
             resolve: async (_, args) => {
               const repositories = new ReviewsRepositories(strapi)
-              
-              const reviewResponse = await repositories.findMany({
+
+              const reviewsResponse = await repositories.findMany({
                 filters: {
                   $and: [
                     {
@@ -105,7 +105,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
                   ]
                 }
               })
-              return reviewResponse.length > 0 ? reviewResponse[0] : null;
+              return reviewsResponse.length > 0 ? reviewsResponse[0] : null;
             }
           }),
           t.list.field("reviews", {
