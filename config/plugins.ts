@@ -1,13 +1,11 @@
 export default () => ({
     graphql: {
         config: {
+          enabled: true,
           endpoint: '/api/endpoint',
-          shadowCRUD: true,
           playgroundAlways: false,
-          depthLimit: 7,
-          amountLimit: 100,
+          defaultLimit: 100,
           apolloServer: {
-            tracing: false,
             bodyParserConfig: {
               limit: "15mb",
               formLimit: "15mb",

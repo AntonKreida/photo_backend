@@ -168,7 +168,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
           console.log(error);
          }
         }
-      }
+      },
     },
     resolversConfig: {
       "Mutation.singleUploadImg": {
