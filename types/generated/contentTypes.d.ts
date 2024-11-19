@@ -604,6 +604,45 @@ export interface ApiBrandSessionBrandSession
   };
 }
 
+export interface ApiEducationEducation extends Struct.CollectionTypeSchema {
+  collectionName: 'educations';
+  info: {
+    singularName: 'education';
+    pluralName: 'educations';
+    displayName: 'Education';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    path: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::education.education'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFamilyFamily extends Struct.SingleTypeSchema {
   collectionName: 'families';
   info: {
@@ -1417,6 +1456,7 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::brand.brand': ApiBrandBrand;
       'api::brand-session.brand-session': ApiBrandSessionBrandSession;
+      'api::education.education': ApiEducationEducation;
       'api::family.family': ApiFamilyFamily;
       'api::family-session.family-session': ApiFamilySessionFamilySession;
       'api::home-page.home-page': ApiHomePageHomePage;
