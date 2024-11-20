@@ -4,7 +4,7 @@
   "info": {
     "singularName": "education",
     "pluralName": "educations",
-    "displayName": "Educations",
+    "displayName": "Education",
     "description": ""
   },
   "options": {
@@ -40,6 +40,12 @@
       "type": "integer",
       "required": true,
       "min": 1
+    },
+    "student_works": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::student-work.student-work",
+      "mappedBy": "education"
     }
   }
 }

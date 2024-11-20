@@ -4,7 +4,8 @@
   "info": {
     "singularName": "individual-session",
     "pluralName": "individual-sessions",
-    "displayName": "IndividualSessions"
+    "displayName": "Individual session",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -18,20 +19,20 @@
       "maxLength": 255
     },
     "titleImage": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
-    },
-    "sessionImages": {
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
+      ]
+    },
+    "sessionImages": {
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

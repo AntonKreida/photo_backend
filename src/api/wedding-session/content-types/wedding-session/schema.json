@@ -4,7 +4,8 @@
   "info": {
     "singularName": "wedding-session",
     "pluralName": "wedding-sessions",
-    "displayName": "weddingSessions"
+    "displayName": "wedding session",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -18,20 +19,20 @@
       "maxLength": 255
     },
     "titleImage": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
-    },
-    "sessionImages": {
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
+      ]
+    },
+    "sessionImages": {
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

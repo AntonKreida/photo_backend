@@ -4,7 +4,7 @@
   "info": {
     "singularName": "family-session",
     "pluralName": "family-sessions",
-    "displayName": "familySessions",
+    "displayName": "family session",
     "description": ""
   },
   "options": {
@@ -27,12 +27,12 @@
       ]
     },
     "sessionImages": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

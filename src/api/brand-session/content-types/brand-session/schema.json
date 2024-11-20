@@ -4,7 +4,7 @@
   "info": {
     "singularName": "brand-session",
     "pluralName": "brand-sessions",
-    "displayName": "brandSessions",
+    "displayName": "brand session",
     "description": ""
   },
   "options": {
@@ -27,12 +27,12 @@
       ]
     },
     "sessionImages": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

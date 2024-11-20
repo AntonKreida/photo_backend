@@ -572,7 +572,7 @@ export interface ApiBrandSessionBrandSession
   info: {
     singularName: 'brand-session';
     pluralName: 'brand-sessions';
-    displayName: 'brandSessions';
+    displayName: 'brand session';
     description: '';
   };
   options: {
@@ -609,7 +609,7 @@ export interface ApiEducationEducation extends Struct.CollectionTypeSchema {
   info: {
     singularName: 'education';
     pluralName: 'educations';
-    displayName: 'Educations';
+    displayName: 'Education';
     description: '';
   };
   options: {
@@ -641,6 +641,10 @@ export interface ApiEducationEducation extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    student_works: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::student-work.student-work'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -702,7 +706,7 @@ export interface ApiFamilySessionFamilySession
   info: {
     singularName: 'family-session';
     pluralName: 'family-sessions';
-    displayName: 'familySessions';
+    displayName: 'family session';
     description: '';
   };
   options: {
@@ -818,7 +822,8 @@ export interface ApiIndividualSessionIndividualSession
   info: {
     singularName: 'individual-session';
     pluralName: 'individual-sessions';
-    displayName: 'IndividualSessions';
+    displayName: 'Individual session';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -937,7 +942,7 @@ export interface ApiSliderSlider extends Struct.CollectionTypeSchema {
   info: {
     singularName: 'slider';
     pluralName: 'sliders';
-    displayName: 'Sliders';
+    displayName: 'Slider';
     description: '';
   };
   options: {
@@ -973,12 +978,50 @@ export interface ApiSliderSlider extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiStudentWorkStudentWork extends Struct.CollectionTypeSchema {
+  collectionName: 'student_works';
+  info: {
+    singularName: 'student-work';
+    pluralName: 'student-works';
+    displayName: 'Student Work';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 255;
+      }>;
+    workImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    education: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::education.education'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::student-work.student-work'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTypePriceTypePrice extends Struct.CollectionTypeSchema {
   collectionName: 'type_prices';
   info: {
     singularName: 'type-price';
     pluralName: 'type-prices';
-    displayName: 'TypePrice';
+    displayName: 'Type price';
     description: '';
   };
   options: {
@@ -1054,7 +1097,8 @@ export interface ApiWeddingSessionWeddingSession
   info: {
     singularName: 'wedding-session';
     pluralName: 'wedding-sessions';
-    displayName: 'weddingSessions';
+    displayName: 'wedding session';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -1479,6 +1523,7 @@ declare module '@strapi/strapi' {
       'api::price.price': ApiPricePrice;
       'api::review.review': ApiReviewReview;
       'api::slider.slider': ApiSliderSlider;
+      'api::student-work.student-work': ApiStudentWorkStudentWork;
       'api::type-price.type-price': ApiTypePriceTypePrice;
       'api::wedding.wedding': ApiWeddingWedding;
       'api::wedding-session.wedding-session': ApiWeddingSessionWeddingSession;
