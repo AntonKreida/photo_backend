@@ -609,7 +609,8 @@ export interface ApiEducationEducation extends Struct.CollectionTypeSchema {
   info: {
     singularName: 'education';
     pluralName: 'educations';
-    displayName: 'Education';
+    displayName: 'Educations';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -621,12 +622,25 @@ export interface ApiEducationEducation extends Struct.CollectionTypeSchema {
         minLength: 1;
         maxLength: 255;
       }>;
-    path: Schema.Attribute.String &
-      Schema.Attribute.Required &
+    subTitle: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
         maxLength: 255;
       }>;
+    titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    price: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

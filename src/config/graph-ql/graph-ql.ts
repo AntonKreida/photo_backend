@@ -6,7 +6,9 @@ import {
   PriceRepositories,
   ReviewsRepositories,
   AboutRepository,
+  EducationRepositories,
 } from "../../repositories";
+import { EntityEducation } from "../../entity/education";
 
 export const graphqlExtension = (strapi: Core.Strapi) => {
     return ({ nexus }) => ({
@@ -173,6 +175,15 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
           const aboutEntity = new EntityAbout(aboutPage).convertDescriptionMarkdownToHtml();
 
           return aboutEntity;
+        },
+        education: async (_, args) => {
+          const education = await new EducationRepositories(strapi).findOne({
+            documentId: args.documentId
+          });
+
+          const educationEntity = new EntityEducation(education).convertDescriptionMarkdownToHtml();
+
+          return educationEntity;
         }
       },
       Mutation: {

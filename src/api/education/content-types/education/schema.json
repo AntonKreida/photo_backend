@@ -4,7 +4,8 @@
   "info": {
     "singularName": "education",
     "pluralName": "educations",
-    "displayName": "Education"
+    "displayName": "Educations",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -17,11 +18,28 @@
       "minLength": 1,
       "maxLength": 255
     },
-    "path": {
+    "subTitle": {
       "type": "string",
-      "required": true,
       "minLength": 1,
       "maxLength": 255
+    },
+    "titleImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "richtext",
+      "required": true,
+      "minLength": 1
+    },
+    "price": {
+      "type": "integer",
+      "required": true,
+      "min": 1
     }
   }
 }
