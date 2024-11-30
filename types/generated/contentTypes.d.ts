@@ -572,7 +572,7 @@ export interface ApiBrandSessionBrandSession
   info: {
     singularName: 'brand-session';
     pluralName: 'brand-sessions';
-    displayName: 'brand session';
+    displayName: 'Brand session';
     description: '';
   };
   options: {
@@ -706,7 +706,7 @@ export interface ApiFamilySessionFamilySession
   info: {
     singularName: 'family-session';
     pluralName: 'family-sessions';
-    displayName: 'family session';
+    displayName: 'Family session';
     description: '';
   };
   options: {
@@ -743,7 +743,8 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   info: {
     singularName: 'home-page';
     pluralName: 'home-pages';
-    displayName: 'Home-page';
+    displayName: 'home-page';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -1097,7 +1098,7 @@ export interface ApiWeddingSessionWeddingSession
   info: {
     singularName: 'wedding-session';
     pluralName: 'wedding-sessions';
-    displayName: 'wedding session';
+    displayName: 'Wedding session';
     description: '';
   };
   options: {
