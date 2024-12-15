@@ -29,10 +29,10 @@ services:
     networks:
       - strapi
     depends_on:
-      - strapi-db
+      - strapiDB
 
-  strapi-db:
-    container_name: strapi-db
+  strapiDB:
+    container_name: strapiDB
     platform: linux/amd64 #for platform error on Apple M1 chips
     restart: unless-stopped
     env_file: .env
