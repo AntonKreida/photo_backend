@@ -24,7 +24,8 @@ WORKDIR /opt/app
 COPY --from=build /opt/app ./
 ENV PATH=/opt/node_modules/.bin:$PATH
 
-RUN chown -R node:node /opt/app
-USER node
+RUN chown -R root:root /opt/app
+USER root
+
 EXPOSE 1337
 CMD ["yarn", "start"]
