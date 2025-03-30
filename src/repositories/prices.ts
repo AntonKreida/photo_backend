@@ -2,6 +2,7 @@ import { Core } from "@strapi/strapi";
 
 interface IFindManyArgs {
     filters?: Record<string, any>;
+    sort?: Record<string, any>;
 }
 
 export class PriceRepositories {

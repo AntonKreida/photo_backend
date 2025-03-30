@@ -13,6 +13,7 @@ export abstract class Price {
     createdAt?: Schema.Attribute.DateTimeValue;
     updatedAt?: Schema.Attribute.DateTimeValue;
     publishedAt?: Schema.Attribute.DateTimeValue;
+    subDescription?: string
 
     constructor(price: IPrice) {
         this.id = price.id
@@ -24,6 +25,7 @@ export abstract class Price {
         this.createdAt = price.createdAt
         this.updatedAt = price.updatedAt
         this.publishedAt = price.publishedAt
+        this.subDescription = price.subDescription
     }
 
     public abstract convertDescriptionMarkdownToHtml(this: Price): Price

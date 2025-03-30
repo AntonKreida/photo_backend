@@ -57,7 +57,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
           t.list.field('prices', {
             type: 'Price',
             args: {
-              type: "String"
+              type: "String",
             },
             resolve: async (_, args) => {
               const repositories = new PriceRepositories(strapi)
@@ -67,8 +67,11 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
                   filters: {
                     type_price: {
                       type: args.type
-                    }
+                    },
                   },
+                  sort: {
+                    ...args.sortArgs,
+                  }
                 });
 
                 const mappedConvertedPrices = prices.map((price) => (
@@ -78,7 +81,11 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
                 return mappedConvertedPrices
               }
 
-              const prices = await repositories.findMany();
+              const prices = await repositories.findMany({
+                sort: {
+                  ...args.sortArgs,
+                }
+              });
 
               const mappedConvertedPrices = prices.map((price) => (
                 new EntityPrice(price).convertDescriptionMarkdownToHtml()
@@ -142,8 +149,13 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
         createdAt: Sort
       }
 
+      input PricesByInput {
+        cost: Sort
+      }
+
       type Query {
         reviews(sort: LinkReviewByInput): [Review!]
+        prices(type: String, sortArgs: PricesByInput): [Price!]
       }
 
       type FileImg {

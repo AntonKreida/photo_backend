@@ -7,10 +7,10 @@ export interface IPrice {
     locale?: string;
     title?: string;
     description?: string;
+    subDescription?: string;
     cost?: number;
     createdAt?: Schema.Attribute.DateTimeValue;
     updatedAt?: Schema.Attribute.DateTimeValue;
     publishedAt?: Schema.Attribute.DateTimeValue;
     type_price?: Schema.Attribute.Relation<'oneToMany', 'api::price.price'>;
-
 }

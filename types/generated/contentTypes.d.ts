@@ -875,13 +875,14 @@ export interface ApiPricePrice extends Struct.CollectionTypeSchema {
     description: Schema.Attribute.RichText &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 255;
+        minLength: 1;
       }>;
     cost: Schema.Attribute.Integer & Schema.Attribute.Required;
     type_price: Schema.Attribute.Relation<
       'manyToOne',
       'api::type-price.type-price'
     >;
+    subDescription: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -1110,7 +1111,9 @@ export interface ApiTypePriceTypePrice extends Struct.CollectionTypeSchema {
         maxLength: 255;
       }>;
     prices: Schema.Attribute.Relation<'oneToMany', 'api::price.price'>;
-    type: Schema.Attribute.Enumeration<['training', 'personal', 'business']> &
+    type: Schema.Attribute.Enumeration<
+      ['training', 'personal', 'business', 'certificate']
+    > &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;

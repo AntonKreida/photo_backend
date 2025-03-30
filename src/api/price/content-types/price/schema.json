@@ -21,7 +21,7 @@
     "description": {
       "type": "richtext",
       "required": true,
-      "maxLength": 255
+      "minLength": 1
     },
     "cost": {
       "type": "integer",
@@ -32,6 +32,9 @@
       "relation": "manyToOne",
       "target": "api::type-price.type-price",
       "inversedBy": "prices"
+    },
+    "subDescription": {
+      "type": "text"
     }
   }
 }

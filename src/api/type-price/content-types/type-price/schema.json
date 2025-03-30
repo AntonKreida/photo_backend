@@ -29,7 +29,8 @@
       "enum": [
         "training",
         "personal",
-        "business"
+        "business",
+        "certificate"
       ],
       "required": true
     }
