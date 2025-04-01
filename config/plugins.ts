@@ -7,11 +7,11 @@ export default () => ({
           defaultLimit: 100,
           apolloServer: {
             bodyParserConfig: {
-              limit: "2mb",
-              formLimit: "2mb",
-              jsonLimit: "2mb",
-              textLimit: "2mb",
-              xmlLimit: "2mb",
+              limit: "256mb",
+              formLimit: "256mb",
+              jsonLimit: "256mb",
+              textLimit: "256mb",
+              xmlLimit: "256mb",
             },
           },
         },

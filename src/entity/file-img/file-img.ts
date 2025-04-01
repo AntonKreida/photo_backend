@@ -1,9 +1,15 @@
+import sharp from "sharp";
 import { FileImgRequest } from "../../lib";
+
+
+type TArgument <T> = T extends (args: infer U) => any ? U : never;
+
+type TResizeOptions = TArgument<ReturnType<typeof sharp>["resize"]>;
 
 export class EntityFileImg {
     buffer: Buffer;
     name: string;
-    extension: string;
+    extension: "png" | "jpeg" | "jpg";
     mime: string;
     width: number;
     height: number;
@@ -11,7 +17,7 @@ export class EntityFileImg {
     constructor(fileImgRequest: FileImgRequest) {
         this.buffer = Buffer.from(fileImgRequest.buffer.data, 'base64');
         this.name = fileImgRequest.name;
-        this.extension = fileImgRequest.extension;
+        this.extension = fileImgRequest.extension as "png" | "jpeg" | "jpg";
         this.mime = fileImgRequest.mimeType;
         this.width = fileImgRequest.width;
         this.height = fileImgRequest.height;
@@ -33,6 +39,20 @@ export class EntityFileImg {
             height: this.height,
         }
     };
+
+    public async setResizeFile(options: TResizeOptions): Promise<EntityFileImg> {
+        const resultSharpTransform = sharp(this.buffer).resize({
+            ...options,
+        }).toFormat(this.extension)
+
+        this.width = options.width;
+        this.height = options.height;
+        this.buffer = await resultSharpTransform.toBuffer();
+
+
+        return this;
+    }
+
     public getBuffer() {
         return this.buffer;
     };

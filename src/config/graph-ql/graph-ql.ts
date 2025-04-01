@@ -153,6 +153,11 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
         cost: Sort
       }
 
+      input OptionUploadImg {
+        width: Int
+        height: Int
+      }
+
       type Query {
         reviews(sort: LinkReviewByInput): [Review!]
         prices(type: String, sortArgs: PricesByInput): [Price!]
@@ -176,7 +181,7 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
       }
 
       type Mutation {
-        singleUploadImg(file: Upload!): FileImg
+        singleUploadImg(file: Upload! options: OptionUploadImg): FileImg
       }
     `,
     resolvers: {
@@ -203,8 +208,27 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
          try {
           const uploadRepository = new UploadRepository(strapi);
 
+
           const folder = await uploadRepository.createFolder(args.file.folder);
-          const file = await uploadRepository.uploadFileImg(new EntityFileImg(args.file), folder?.path);
+
+          let newImg = new EntityFileImg(args.file)
+
+
+          console.log(args.options);
+
+          if(args.options.width && args.options.height) {
+            newImg = await newImg.setResizeFile({
+              width: args.options.width,
+              height: args.options.height,
+              background: "transparent",
+              fit: "cover",
+              position: "center"
+            })
+          }
+
+          console.log(newImg);
+
+          const file = await uploadRepository.uploadFileImg(newImg, folder?.path);
 
           return file
          } catch (error) {
