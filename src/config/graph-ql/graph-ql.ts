@@ -187,11 +187,19 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
     resolvers: {
       Query: {
         about: async () => {
-          const aboutPage = await new AboutRepository(strapi).findMany();
+          try {
+            const aboutPage = await new AboutRepository(strapi).findMany();
+            const aboutEntity = new EntityAbout(aboutPage).convertDescriptionMarkdownToHtml();
 
-          const aboutEntity = new EntityAbout(aboutPage).convertDescriptionMarkdownToHtml();
+            const user = await strapi.db.query('admin::user').findMany()
 
-          return aboutEntity;
+
+            console.log(user)
+
+            return aboutEntity;
+          } catch (error) {
+            console.log(error);
+          }
         },
         education: async (_, args) => {
           const education = await new EducationRepositories(strapi).findOne({
@@ -207,14 +215,9 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
         singleUploadImg: async (_, args) => {
          try {
           const uploadRepository = new UploadRepository(strapi);
-
-
           const folder = await uploadRepository.createFolder(args.file.folder);
 
           let newImg = new EntityFileImg(args.file)
-
-
-          console.log(args.options);
 
           if(args.options.width && args.options.height) {
             newImg = await newImg.setResizeFile({
@@ -225,8 +228,6 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
               position: "center"
             })
           }
-
-          console.log(newImg);
 
           const file = await uploadRepository.uploadFileImg(newImg, folder?.path);
 
