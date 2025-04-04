@@ -343,6 +343,51 @@ export interface PluginReviewWorkflowsWorkflowStage
   };
 }
 
+export interface PluginTelegramBotTelegramChat
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'telegram-chat';
+  info: {
+    singularName: 'telegram-chat';
+    pluralName: 'telegram-chats';
+    displayName: 'Telegram chat';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    chatId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    username: Schema.Attribute.String & Schema.Attribute.DefaultTo<''>;
+    firstName: Schema.Attribute.String & Schema.Attribute.DefaultTo<''>;
+    lastName: Schema.Attribute.String & Schema.Attribute.DefaultTo<''>;
+    isActiveChat: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::telegram-bot.telegram-chat'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Struct.CollectionTypeSchema {
   collectionName: 'up_permissions';
@@ -1586,6 +1631,7 @@ declare module '@strapi/strapi' {
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
+      'plugin::telegram-bot.telegram-chat': PluginTelegramBotTelegramChat;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;

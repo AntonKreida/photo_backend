@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "telegram-chat",
+  "info": {
+    "singularName": "telegram-chat",
+    "pluralName": "telegram-chats",
+    "displayName": "Telegram chat",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+  },
+  "attributes": {
+    "chatId": {
+      "type": "string",
+      "regex": "^\\d+$",
+      "required": true,
+      "unique": true
+    },
+    "username": {
+      "type": "string",
+      "default": ""
+    },
+    "firstName": {
+      "type": "string",
+      "default": ""
+    },
+    "lastName": {
+      "type": "string",
+      "default": ""
+    },
+    "isActiveChat": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
