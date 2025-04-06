@@ -2,20 +2,34 @@ import { Core } from '@strapi/strapi';
 import TelegramBot from 'node-telegram-bot-api';
 
 class BotService extends TelegramBot {
-  constructor(
-    private strapi: Core.Strapi,
-    token: string
-  ) {
+  #strapi: Core.Strapi;
+
+  constructor(strapi: Core.Strapi, token: string) {
     super(token, {
-      polling: true,
+      polling: {
+        autoStart: true,
+        interval: 300,
+      },
     });
 
-    this.connectListener();
+    this.#strapi = strapi;
+    this.#connectListener();
   }
 
-  private connectListener() {
-    this.onText(/\/start/, (msg) => {
-      this.sendMessage(msg.chat.id, 'Welcome to Strapi 🚀');
+  #connectListener() {
+    this.onText(/^\/start\s?$/, (msg) => {
+      this.sendMessage(
+        msg.chat.id,
+        'Добро пожаловать! Вас приветствует бот сайта melnikova-foto72.ru. Для того чтобы авторизоваться в нашем боте и получать сообщения введите логин и пароль от админки сайта в формате: "/login username password"'
+      );
+    });
+
+    this.onText(/^(?!\/start).*|(?<=\d)\/start/, (msg) => {
+      this.sendMessage(msg.chat.id, 'Этот бот еще в разработке');
+    });
+
+    this.on('polling_error', (error: any) => {
+      console.log(error.message);
     });
   }
 }
