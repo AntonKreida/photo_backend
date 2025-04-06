@@ -8,7 +8,8 @@ const HomePage = () => {
 
   return (
     <Main>
-      <h1>Welcome  {formatMessage({ id: getTranslation('plugin.name') })}</h1>
+      <h1>Welcome {formatMessage({ id: getTranslation('plugin.name') })}</h1>
+      <a href="tg://resolve?domain=photo_sasha_test_bot&start=user_id" target='_blank'>линка на телеграм бот</a>
     </Main>
   );
 };
