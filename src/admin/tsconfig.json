@@ -22,7 +22,8 @@
   "include": [
     "../plugins/**/admin/src/**/*",
     "./",
-    "./module.d.ts"
+    "./module.d.ts",
+    "./vite-env.d.ts",
   ],
   "exclude": [
     "node_modules/",

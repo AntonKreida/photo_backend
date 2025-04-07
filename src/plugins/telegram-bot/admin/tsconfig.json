@@ -1,6 +1,10 @@
 {
   "extends": "@strapi/typescript-utils/tsconfigs/admin",
-  "include": ["./src", "./custom.d.ts"],
+  "include": [
+    "./src",
+    "./custom.d.ts",
+    "./vite-env.d.ts"
+  ],
   "compilerOptions": {
     "rootDir": "../",
     "baseUrl": "."
