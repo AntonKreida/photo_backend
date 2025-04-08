@@ -1,5 +1,5 @@
-import { Initializer, PluginIcon } from './app';
-import { PLUGIN_ID } from './utils/';
+import { Initializer } from './app';
+import { PLUGIN_ID, PluginIcon } from './shared';
 
 export default {
   register(app: any) {
