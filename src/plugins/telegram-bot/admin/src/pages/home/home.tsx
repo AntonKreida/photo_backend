@@ -1,7 +1,7 @@
 import { Main } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 
-import { getTranslation } from '../shared/utils/get-translation.util';
+import { getTranslation } from '../../shared/utils/get-translation.util';
 
 const HomePage = () => {
   const { formatMessage } = useIntl();

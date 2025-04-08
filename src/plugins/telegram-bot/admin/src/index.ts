@@ -1,4 +1,4 @@
-import { Initializer } from './app';
+import { Initializer } from './initializer';
 import { PLUGIN_ID, PluginIcon } from './shared';
 
 export default {
@@ -11,7 +11,7 @@ export default {
         defaultMessage: PLUGIN_ID,
       },
       Component: async () => {
-        const { App } = await import('./pages/App');
+        const { App } = await import('./app');
 
         return App;
       },
