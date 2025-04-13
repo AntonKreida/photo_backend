@@ -191,11 +191,6 @@ export const graphqlExtension = (strapi: Core.Strapi) => {
             const aboutPage = await new AboutRepository(strapi).findMany();
             const aboutEntity = new EntityAbout(aboutPage).convertDescriptionMarkdownToHtml();
 
-            const user = await strapi.db.query('admin::user').findMany()
-
-
-            console.log(user)
-
             return aboutEntity;
           } catch (error) {
             console.log(error);
