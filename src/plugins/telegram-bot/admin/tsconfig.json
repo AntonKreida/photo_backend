@@ -3,7 +3,8 @@
   "include": [
     "./src",
     "./custom.d.ts",
-    "./vite-env.d.ts"
+    "./vite-env.d.ts",
+    "./theme.d.ts"
   ],
   "compilerOptions": {
     "rootDir": "../",
