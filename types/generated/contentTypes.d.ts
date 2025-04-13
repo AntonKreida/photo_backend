@@ -580,9 +580,7 @@ export interface ApiBrandSessionBrandSession
   };
   attributes: {
     title: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        minLength: 1;
         maxLength: 255;
       }>;
     titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
@@ -714,9 +712,7 @@ export interface ApiFamilySessionFamilySession
   };
   attributes: {
     title: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        minLength: 1;
         maxLength: 255;
       }>;
     titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
@@ -831,9 +827,7 @@ export interface ApiIndividualSessionIndividualSession
   };
   attributes: {
     title: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        minLength: 1;
         maxLength: 255;
       }>;
     titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
@@ -945,9 +939,7 @@ export interface ApiReportSessionReportSession
   };
   attributes: {
     title: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        minLength: 1;
         maxLength: 255;
       }>;
     titleImage: Schema.Attribute.Media<'images' | 'files'> &
@@ -1183,9 +1175,7 @@ export interface ApiWeddingSessionWeddingSession
   };
   attributes: {
     title: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        minLength: 1;
         maxLength: 255;
       }>;
     titleImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;

@@ -14,8 +14,7 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true,
-      "minLength": 1,
+      "required": false,
       "maxLength": 255
     },
     "titleImage": {
