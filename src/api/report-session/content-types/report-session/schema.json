@@ -14,27 +14,26 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true,
-      "maxLength": 255,
-      "minLength": 1
+      "required": false,
+      "maxLength": 255
     },
     "titleImage": {
-      "allowedTypes": [
-        "images",
-        "files"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
-    },
-    "sessionImages": {
+      "required": true,
       "allowedTypes": [
         "images",
         "files"
-      ],
+      ]
+    },
+    "sessionImages": {
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }
