@@ -1,10 +1,15 @@
 import { Core } from '@strapi/strapi';
 import TelegramBot from 'node-telegram-bot-api';
+import { UserStrapiRepository } from '../repositories';
 
 class BotService extends TelegramBot {
   #strapi: Core.Strapi;
 
-  constructor(strapi: Core.Strapi, token: string) {
+  constructor(
+    strapi: Core.Strapi,
+    token: string,
+    private readonly userRepository: UserStrapiRepository
+  ) {
     super(token, {
       polling: {
         autoStart: true,
@@ -17,14 +22,18 @@ class BotService extends TelegramBot {
   }
 
   #connectListener() {
-    this.onText(/^\/start\s?$/, (msg) => {
-      this.sendMessage(
+    this.onText(/^\/start\s?$/, async (msg) => {
+      const user = await this.userRepository.findUsers();
+
+      console.log(user);
+
+      await this.sendMessage(
         msg.chat.id,
         `Добро пожаловать! Вас приветствует бот сайта melnikova-foto72.ru. Для того чтобы авторизоваться в нашем боте используйте пожалуйста ссылку в админ. панели сайта`
       );
     });
 
-    this.onText(/^\/start\s[a-zA-Z0-9\-_@.]+$/, (msg) => {
+    this.onText(/^\/start\s[a-zA-Z0-9\-_@.]+$/, async (msg) => {
       const userId = msg.text.replace(/^\/start\s/, '');
 
       console.log(userId);
@@ -39,5 +48,5 @@ class BotService extends TelegramBot {
 export default ({ strapi }: { strapi: Core.Strapi }): BotService => {
   const token = strapi.plugin('telegram-bot').config('telegramToken') as string;
 
-  return new BotService(strapi, token);
+  return new BotService(strapi, token, new UserStrapiRepository(strapi));
 };
