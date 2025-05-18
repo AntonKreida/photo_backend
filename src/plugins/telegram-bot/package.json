@@ -34,7 +34,8 @@
     "@strapi/design-system": "^2.0.0-rc.21",
     "@strapi/icons": "^2.0.0-rc.21",
     "node-telegram-bot-api": "^0.66.0",
-    "react-intl": "^7.1.10"
+    "react-intl": "^7.1.10",
+    "swr": "^2.3.3"
   },
   "devDependencies": {
     "@strapi/sdk-plugin": "^5.3.2",

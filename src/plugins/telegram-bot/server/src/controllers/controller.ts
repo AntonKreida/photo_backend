@@ -8,6 +8,10 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
       .service('service')
       .getWelcomeMessage();
   },
+
+  getTelegramChats(ctx) {
+    ctx.body = strapi.plugin('telegram-bot').service('telegramChatService').findAllTelegramChats();
+  },
 });
 
 export default controller;

@@ -7,6 +7,9 @@
     "./theme.d.ts"
   ],
   "compilerOptions": {
+    "types": [
+      "@strapi/design-system"
+    ],
     "rootDir": "../",
     "baseUrl": ".",
     "paths": {

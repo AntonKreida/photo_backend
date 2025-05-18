@@ -1,15 +1,12 @@
 import { Core } from '@strapi/strapi';
 import TelegramBot from 'node-telegram-bot-api';
-import { UserStrapiRepository } from '../repositories';
+import { UserStrapiRepository } from '../../repositories';
 
 class BotService extends TelegramBot {
   #strapi: Core.Strapi;
+  #userRepository: UserStrapiRepository;
 
-  constructor(
-    strapi: Core.Strapi,
-    token: string,
-    private readonly userRepository: UserStrapiRepository
-  ) {
+  constructor(strapi: Core.Strapi, token: string, userRepository: UserStrapiRepository) {
     super(token, {
       polling: {
         autoStart: true,
@@ -23,7 +20,7 @@ class BotService extends TelegramBot {
 
   #connectListener() {
     this.onText(/^\/start\s?$/, async (msg) => {
-      const user = await this.userRepository.findUsers();
+      const user = await this.#userRepository.findUsers();
 
       console.log(user);
 
