@@ -1052,17 +1052,12 @@ export interface ApiStudentWorkStudentWork extends Struct.CollectionTypeSchema {
     singularName: 'student-work';
     pluralName: 'student-works';
     displayName: 'Student Work';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 1;
-        maxLength: 255;
-      }>;
     workImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     education: Schema.Attribute.Relation<
       'manyToOne',

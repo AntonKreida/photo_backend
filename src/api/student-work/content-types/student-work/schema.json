@@ -4,26 +4,21 @@
   "info": {
     "singularName": "student-work",
     "pluralName": "student-works",
-    "displayName": "Student Work"
+    "displayName": "Student Work",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
-      "type": "string",
-      "required": true,
-      "minLength": 1,
-      "maxLength": 255
-    },
     "workImage": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "education": {
       "type": "relation",
